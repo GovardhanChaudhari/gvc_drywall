@@ -46,32 +46,9 @@ var renderSettings = function (req, res, next, oauthMessage) {
                 oauthGoogleActive: outcome.user.google ? !!outcome.user.google.id : false,
                 oauthTumblr: !!req.app.config.oauth.tumblr.key,
                 oauthTumblrActive: outcome.user.tumblr ? !!outcome.user.tumblr.id : false
+            };
 
-            }
-
-            Object.keys(req.app.config.urls).forEach(function (key) {
-                resData[key] = req.app.config.urls[key];
-            });
-
-
-            res.render('account/settings/index', resData /*{
-             data: {
-             account: escape(JSON.stringify(outcome.account)),
-             user: escape(JSON.stringify(outcome.user))
-             },
-             oauthMessage: oauthMessage,
-             oauthTwitter: !!req.app.config.oauth.twitter.key,
-             oauthTwitterActive: outcome.user.twitter ? !!outcome.user.twitter.id : false,
-             oauthGitHub: !!req.app.config.oauth.github.key,
-             oauthGitHubActive: outcome.user.github ? !!outcome.user.github.id : false,
-             oauthFacebook: !!req.app.config.oauth.facebook.key,
-             oauthFacebookActive: outcome.user.facebook ? !!outcome.user.facebook.id : false,
-             oauthGoogle: !!req.app.config.oauth.google.key,
-             oauthGoogleActive: outcome.user.google ? !!outcome.user.google.id : false,
-             oauthTumblr: !!req.app.config.oauth.tumblr.key,
-             oauthTumblrActive: outcome.user.tumblr ? !!outcome.user.tumblr.id : false
-
-             }*/);
+            res.render('account/settings/index', resData);
         };
 
         require('async').parallel([getAccountData, getUserData], asyncFinally);

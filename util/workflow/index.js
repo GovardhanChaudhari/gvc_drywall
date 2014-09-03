@@ -6,8 +6,7 @@ exports = module.exports = function(req, res) {
   workflow.outcome = {
     success: false,
     errors: [],
-    errfor: {},
-    urls:{}
+    errfor: {}
   };
 
   workflow.hasErrors = function() {
@@ -21,9 +20,8 @@ exports = module.exports = function(req, res) {
 
   workflow.on('response', function() {
     workflow.outcome.success = !workflow.hasErrors();
-      console.log("workflow response is called");
-      //req.app.utility.view.showNotice(workflow.outcome);
-      workflow.outcome.urls = req.app.config.urls;
+    console.log("workflow response is called");
+    //req.app.utility.view.showNotice(workflow.outcome);
     res.send(workflow.outcome);
   });
 

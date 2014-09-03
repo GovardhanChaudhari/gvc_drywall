@@ -11,7 +11,9 @@ var config = require('./config'),
     passport = require('passport'),
     mongoose = require('mongoose'),
     helmet = require('helmet'),
+    gvcUtils = require('gvc_utils'),
     csrf = require('csurf');
+
 
 //create express app
 var app = express();
@@ -60,6 +62,8 @@ app.use(function(req, res, next) {
   res.locals.user = {};
   res.locals.user.defaultReturnUrl = req.user && req.user.defaultReturnUrl();
   res.locals.user.username = req.user && req.user.username;
+  console.log("merging urls with response");
+  res.locals =  gvcUtils.object.mergeObjects(res.app.config.urls,res.locals);
   next();
 });
 
