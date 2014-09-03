@@ -1,0 +1,26 @@
+extends ../../layouts/admin
+
+block head
+  title Admin Area
+
+block neck
+  link(rel='stylesheet', href='/views/admin/index.min.css?#{cacheBreaker}')
+
+include ./templates/box.jade
+block body
+  div.row
+    div.col-sm-6
+      div.page-header
+        h1 Admin Area
+      div.row
+        +blackbox(urlUser,hUser,countUser)
+        +blackbox(urlAccount,hAccount,countAccount)
+        +blackbox(urlAdmin,'Admins',countAdmin)
+      div.row
+        +blackbox(urlAdminGroup,hAdminGroup,countAdminGroup)
+        +blackbox(urlCategory,hCategory,countCategory)
+        +blackbox(urlStatus,hStatus,countStatus)
+    div.col-sm-6.special
+      div.page-header
+        h1 Super Dashboard
+      i.fa.fa-gears.super-awesome
