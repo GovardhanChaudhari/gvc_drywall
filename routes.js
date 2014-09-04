@@ -1,5 +1,8 @@
 'use strict';
 
+//TODO Refactoring : move following methods in separate security
+// utils file
+
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
@@ -29,6 +32,9 @@ function ensureAccount(req, res, next) {
 }
 
 exports = module.exports = function(app, passport) {
+
+    //TODO Refactoring: replace hardcoded urls with constants configured in config.js
+
   //front end
   app.get('/', require('./views/index').init);
   app.get('/about/', require('./views/about/index').init);
@@ -123,6 +129,20 @@ exports = module.exports = function(app, passport) {
   app.post('/admin/accounts/:id/notes/', require('./views/admin/accounts/index').newNote);
   app.post('/admin/accounts/:id/status/', require('./views/admin/accounts/index').newStatus);
   app.delete('/admin/accounts/:id/', require('./views/admin/accounts/index').delete);
+
+
+    // entries
+
+    //TODO all urls in require() are controllers and named as index, so change their names
+    // according to model name and move in separate controller folder
+    // Refactoring : move common controller actions in abstract controller
+    app.get(app.config.urls.entryUrl, require('./views/entry/index').find);
+    //app.get(app.config.urls.entryUrl, require('./views/entry/details/index').find);
+    app.post(app.config.urls.entryUrl, require('./views/entry/index').create);
+    app.get(app.config.urls.entryUrl+ "/:id/", require('./views/entry/index').read);
+    app.put(app.config.urls.entryUrl+ "/:id/", require('./views/entry/index').update);
+    app.delete(app.config.urls.entryUrl+ "/:id/", require('./views/entry/index').delete);
+
 
   //admin > statuses
   app.get('/admin/statuses/', require('./views/admin/statuses/index').find);

@@ -49,6 +49,8 @@ exports.oauth = {
   }
 };
 
+//TODO are these global vars ?, make them local
+// routing urls
 var baseAdminUrl="/admin";
 var baseAccountUrl="/account";
 
@@ -63,6 +65,8 @@ exports.urls = {
         statusUrl: baseAdminUrl + "/statuses",
         adminUrl:baseAdminUrl+ "/administrators"
     },
+
+    entryUrl:"/entries",
 
     signup:"/signup/",
     login:"/login",
@@ -81,8 +85,8 @@ exports.urls = {
 
 
 };
-
+//models collection
 exports.models = {
-    names:['User', 'Account', 'Admin', 'AdminGroup', 'Category', 'Status']
+    names:['Entry','User', 'Account', 'Admin', 'AdminGroup', 'Category', 'Status']
 };
 

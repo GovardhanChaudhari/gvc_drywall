@@ -1,0 +1,69 @@
+extends ../../layouts/account
+block head
+    title Manage Entries
+block neck
+    link(rel='stylesheet', href='/views/admin/users/index.min.css?#{cacheBreaker}')
+block feet
+    script(src='/views/entry/index.min.js?#{cacheBreaker}')
+block body
+    div.row
+        div.col-xs-12
+            div#header
+            div#filters
+            div#results-table
+            div#results-paging
+    script(type='text/template', id='tmpl-header')
+        div.page-header
+          form.form-inline.pull-right
+            div.input-group
+              input.form-control(name='amount', type='text', placeholder='enter amount', value!='<%= amount %>')
+              button.btn.btn-primary.btn-add(type='button') Add New
+          h1 Entries
+    script(type='text/template', id='tmpl-filters')
+        form.filters
+          div.row
+            div.col-sm-3
+              label Description Search
+              input.form-control(name='description', type='text')
+            div.col-sm-3
+              label By Type
+              select.form-control(name='type')
+                option(value='') any
+                option(value='CR') Credit
+                option(value='DR') Debit
+            div.col-sm-2
+              label Sort By
+              select.form-control(name='sort')
+                option(value='_id') id &#9650;
+                option(value='-_id') id &#9660;
+                option(value='type') type &#9650;
+                option(value='-type') type &#9660;
+                option(value='amount') amount &#9650;
+                option(value='-amount') amount &#9660;
+            div.col-sm-2
+              label Limit
+              select.form-control(name='limit')
+                option(value='10') 10 items
+                option(value='20', selected='selected') 20 items
+                option(value='50') 50 items
+                option(value='100') 100 items
+    script(type='text/template', id='tmpl-results-table')
+        table.table.table-striped
+          thead
+            tr
+              th
+              th description
+              th.stretch amount
+              th type
+              th id
+          tbody#results-rows
+    script(type='text/template', id='tmpl-results-row')
+        td
+          input.btn.btn-default.btn-sm.btn-details(type='button', value='Edit')
+        td <%= description %>
+        td <%= amount %>
+        td <%= type %>
+        td <%= _id %>
+    include ../templates/empty_row.jade
+    include ../templates/pagination.jade
+    script(type='text/template', id='data-results') !{data.results}

@@ -1,5 +1,5 @@
 'use strict';
-
+// Whenever you add a new schema, add the file name here
 exports = module.exports = function(app, mongoose) {
   //embeddable docs first
   require('./schema/Note')(app, mongoose);
@@ -13,4 +13,5 @@ exports = module.exports = function(app, mongoose) {
   require('./schema/AdminGroup')(app, mongoose);
   require('./schema/Account')(app, mongoose);
   require('./schema/LoginAttempt')(app, mongoose);
+  require('./schema/Entry')(app, mongoose);
 };

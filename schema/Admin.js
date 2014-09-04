@@ -10,7 +10,7 @@ exports = module.exports = function(app, mongoose) {
       full: { type: String, default: '' },
       first: { type: String, default: '' },
       middle: { type: String, default: '' },
-      last: { type: String, default: '' },
+      last: { type: String, default: '' }
     },
     groups: [{ type: String, ref: 'AdminGroup' }],
     permissions: [{

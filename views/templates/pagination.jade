@@ -1,0 +1,9 @@
+script(type='text/template', id='tmpl-results-paging')
+    div.well
+        div.btn-group.pull-left
+            button.btn.btn-default(disabled=true) Page <%= pages.current %> of <%= pages.total %>
+            button.btn.btn-default(disabled=true) Rows <%= items.begin %> - <%= items.end %> of <%= items.total %>
+        div.btn-group.pull-right
+            button.btn.btn-default.btn-page.btn-prev(data-page!='<%= pages.prev %>') Prev
+            button.btn.btn-default.btn-page.btn-next(data-page!='<%= pages.next %>')  Next
+        div.clearfix

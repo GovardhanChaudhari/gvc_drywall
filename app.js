@@ -62,7 +62,8 @@ app.use(function(req, res, next) {
   res.locals.user = {};
   res.locals.user.defaultReturnUrl = req.user && req.user.defaultReturnUrl();
   res.locals.user.username = req.user && req.user.username;
-  console.log("merging urls with response");
+  //TODO move following code to separate function
+    console.log("merging urls with response");
   res.locals =  gvcUtils.object.mergeObjects(res.app.config.urls,res.locals);
   next();
 });

@@ -123,3 +123,68 @@ License
 MIT
 
 [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/d41f60f22a2148e2e2dc6b705cd01481 "githalytics.com")](http://githalytics.com/jedireza/drywall)
+
+Docs
+----
+
+Date created this doc: 3/9/2014(DD/MM/YYYY)
+
+- TODOS
+    - Create separate dir for controller code and move files.
+    - Rename controller files according to model name
+    - Move hardcoded values to config.js
+    - Create template files for reusable view code, also use jade mixin wherever possible
+    - Create proper for for creating new entity
+    
+    - Features
+        - Decide witch client side view technology is best(current is backbonejs )
+        - Create scaffold code generator
+            - default routes
+            - controller
+            - model
+            - views
+                - CRUD
+
+- Notes
+    - Web framework used is express
+    - View is implemented with jade template engine for server side and backbonejs for client side 
+    
+- Adding new entity (model,view,controller,routing)    
+    
+    - Routing
+        - /config.js
+            - Add model name in models collection
+            - Add routing urls
+                -Eg. entryUrl:"/entries"
+        - /routes.js
+            - Add routes for get,post,put,delete (CRUD)
+                - Eg. app.get(app.config.urls.entryUrl, require('./views/entry/index').find);
+            - Read action
+                - Read single record
+                - Read record collection
+    
+    - Model
+        - /schema/<ModelName.js>
+            - Add a schema variable
+            - Add required attribute names, types and constraints
+            - Add required associations
+            - Add required instance and static functions
+            - Add required plugin
+            - Add indexing for required attributes
+            - Set this schema model to app variable for global access
+    
+    - View
+        - Server Side
+            - path of root view folder is /views (this path is configurable)
+            - Create dir with name of model in small case. Eg. for model with name 'Entry', dir name should be 'entry'
+                - Create index.jade and details.jade template files
+                - Also extend above template file with appropriate layout template files (/layouts)
+                    - Eg. extends ../../layouts/account
+            
+            
+        
+        - Client Side
+        
+    - Controller
+        - Currently controller file is created in /views<model name> directory with file name 'index.js' (this file should
+         be moved to separate dir with name 'controllers/<model name>')
