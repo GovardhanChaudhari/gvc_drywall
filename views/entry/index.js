@@ -103,6 +103,11 @@ exports.create = function(req, res, next){
             return workflow.emit('response');
         }
 
+        if (!req.body['type']) {
+            workflow.outcome.errors.push('Please enter type.');
+            return workflow.emit('response');
+        }
+
         workflow.emit('createEntry');
     });
 
@@ -156,37 +161,30 @@ exports.update = function(req, res, next){
             return workflow.emit('response');
         }
 
-        //TODO
-        //workflow.emit('patchEntry');
+        workflow.emit('patchEntry');
     });
 
     workflow.on('patchEntry', function() {
+
+
+
         var fieldsToSet = {
-            name: {
-                first: req.body.first,
-                middle: req.body.middle,
-                last: req.body.last,
-                full: req.body.first +' '+ req.body.last
-            },
-            company: req.body.company,
-            phone: req.body.phone,
-            zip: req.body.zip,
+            amount:req.body['amount'],
+            type:req.body['type'],
+            description:req.body['description'],
             search: [
-                req.body.first,
-                req.body.middle,
-                req.body.last,
-                req.body.company,
-                req.body.phone,
-                req.body.zip
+                req.body['amount'],
+                req.body['type'],
+                req.body['description']
             ]
         };
 
-        req.app.db.models.Account.findByIdAndUpdate(req.params.id, fieldsToSet, function(err, account) {
+        req.app.db.models.Entry.findByIdAndUpdate(req.params.id, fieldsToSet, function(err, entry) {
             if (err) {
                 return workflow.emit('exception', err);
             }
 
-            workflow.outcome.account = account;
+            workflow.outcome.entry = entry;
             return workflow.emit('response');
         });
     });
@@ -409,14 +407,14 @@ exports.delete = function(req, res, next){
     var workflow = req.app.utility.workflow(req, res);
 
     //TODO
-    /*workflow.on('validate', function() {
-        if (!req.user.roles.admin.isMemberOf('root')) {
+    workflow.on('validate', function() {
+        /*if (!req.user.roles.admin.isMemberOf('root')) {
             workflow.outcome.errors.push('You may not delete accounts.');
             return workflow.emit('response');
-        }
+        }*/
 
         workflow.emit('deleteAccount');
-    });*/
+    });
 
     workflow.on('deleteEntry', function(err) {
         req.app.db.models.Entry.findByIdAndRemove(req.params.id, function(err, entry) {

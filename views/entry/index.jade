@@ -16,6 +16,7 @@ block body
         div.page-header
           form.form-inline.pull-right
             div.input-group
+              input.form-control(name='type', type='text', placeholder='enter type(CR/DR)', value!='<%= type %>')
               input.form-control(name='amount', type='text', placeholder='enter amount', value!='<%= amount %>')
               button.btn.btn-primary.btn-add(type='button') Add New
           h1 Entries
